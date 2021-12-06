@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Receta>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h1>Recetas</h1>
+        </div>
+        <div class="col-2">
+            <a asp-controller="Receta" asp-action="Crear" class="btn btn-success">
+                Agregar Receta
+            </a>
+        </div>
+    </div>
+</div>
+
+@if(Model.Count() > 0)
+{
+    <h3>Existen Recetas!</h3>
+
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Descripción</td>
+                <td>Está Preparado</td>
+                <td>Opciones</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Id</td>
+                    <td>@m.Nombre</td>
+                    <td>@m.Descripcion</td>
+                    @if (m.EstaPreparada)
+                    {
+                        <td>Si</td>
+                    }
+                    else
+                    {
+                        <td>No</td>
+                    }
+                    <td>
+                        <div class="btn-group-sm">
+                            <a asp-controller="Receta" asp-action="Editar" asp-route-Id="@m.Id" role="button" class="btn btn-secondary btn-sm">Editar</a>
+                            <a asp-controller="Receta" asp-action="Eliminar" asp-route-Id="@m.Id" role="button" class="btn btn-danger btn-sm">Borrar</a>
+
+                        </div>
+                    </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
